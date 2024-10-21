@@ -1,12 +1,13 @@
 #!/bin/zsh
 
 # Define arrays/lists of URLs
+
 CAOS_REPO="https://baltig.polito.it/teaching-material/CAOS.git"
 
 LABORATORIES=(
     "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab-1-setup.git"
     "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab2-baremetal.git"
-    #"https://baltig.polito.it/teaching-material/labs-caos-and-os/lab3-freertos.git"
+    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab3-freertos.git"
 )
 
 EXERCISES=(
@@ -20,7 +21,7 @@ EXERCISES=(
 LABORATORIES_CUSTOM_NAMES=(
     "Lab1 - Setup"
     "Lab2 - baremetal"
-    #"Lab3 - FreeRTOS"
+    "Lab3 - FreeRTOS"
 )
 
 
@@ -95,24 +96,23 @@ echo "Processing CAOS repository"
 clone_or_pull "$CAOS_REPO" "."
 
 # Clone or pull Laboratories repositories
-#echo "Processing Laboratories repositories"
-#for index in "${!LABORATORIES[@]}"; do
-#    repo="${LABORATORIES[$index]}"
-#    custom_name="${LABORATORIES_CUSTOM_NAMES[$index]}"
-#    clone_or_pull "$repo" "Laboratories" "$custom_name"
-#done
+echo "Processing Laboratories repositories"
+for index in {1..$#LABORATORIES}; do
+    repo="${LABORATORIES[$index]}"
+    custom_name="${LABORATORIES_CUSTOM_NAMES[$index]}"
+    clone_or_pull "$repo" "Laboratories" "$custom_name"
+done
 
 # Clone or pull Exercises repositories
-#echo "Processing Exercises repositories"
-#for index in "${!EXERCISES[@]}"; do
-#    repo="${EXERCISES[$index]}"
-#    custom_name="${EXERCISES_CUSTOM_NAMES[$index]}"
-#    clone_or_pull "$repo" "Exercises" "$custom_name"
-#done
+echo "Processing Exercises repositories"
+for index in {1..$#EXERCISES}; do
+    repo="${EXERCISES[$index]}"
+    custom_name="${EXERCISES_CUSTOM_NAMES[$index]}"
+    clone_or_pull "$repo" "Exercises" "$custom_name"
+done
 
 # Initialize and update all submodules
 git submodule init
-#git submodule update
-git submodule update --recursive --remote # TODO: check
+git submodule update --recursive --remote # TODO: check "--recursive --remote"
 
 echo "All repositories have been processed (cloned or pulled) in their respective directories."
