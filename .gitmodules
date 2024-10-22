@@ -8,8 +8,8 @@
     path = Laboratories/Lab2 - baremetal
     url = https://baltig.polito.it/teaching-material/labs-caos-and-os/lab2-baremetal.git
 [submodule "Laboratories/Lab3 - FreeRTOS"]
-	path = Laboratories/Lab3 - FreeRTOS
-	url = https://baltig.polito.it/teaching-material/labs-caos-and-os/lab3-freertos.git
+    path = Laboratories/Lab3 - FreeRTOS
+    url = https://baltig.polito.it/teaching-material/labs-caos-and-os/lab3-freertos.git
 [submodule "Exercises/ARM Bare Metal"]
     path = Exercises/ARM Bare Metal
     url = https://baltig.polito.it/teaching-material/exercises-caos-and-os/arm-bare-metal.git
