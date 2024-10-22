@@ -1,37 +1,7 @@
 #!/bin/zsh
 
-# Define arrays/lists of URLs
-
-CAOS_REPO="https://baltig.polito.it/teaching-material/CAOS.git"
-
-LABORATORIES=(
-    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab-1-setup.git"
-    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab2-baremetal.git"
-    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab3-freertos.git"
-)
-
-EXERCISES=(
-    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/arm-bare-metal.git"
-    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/crosscompilation.git"
-    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/freertos_helloworld.git"
-    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/myfirstos.git"
-    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/process-scheduling.git"
-)
-
-LABORATORIES_CUSTOM_NAMES=(
-    "Lab1 - Setup"
-    "Lab2 - baremetal"
-    "Lab3 - FreeRTOS"
-)
-
-
-EXERCISES_CUSTOM_NAMES=(
-    "ARM Bare Metal"
-    "CrossCompilation"
-    "FreeRTOS_HelloWorld"
-    "MyFirstOS"
-    "Process Scheduling"
-)
+# 
+source urls.txt
 
 # Function to check and create directory if it doesn't exist
 check_and_create_dir() {
