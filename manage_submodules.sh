@@ -1,17 +1,37 @@
 #!/bin/zsh
 
+# Colors for enhanced echo messages
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+CYAN="\033[1;36m"
+RED="\033[0;31m"
+RESET="\033[0m"
+
+# Emojis for better visual distinction # TODO: update
+CHECK="✅"
+WARNING="⚠️"
+FOLDER="📂"
+PULL="⬇️"
+CLONE="📥"
+INFO="ℹ️"
+
 # Source the repository URLs and custom names from an external file (urls.txt)
 source urls.txt
 
 # Function to check and create a directory if it doesn't exist
+# If more than 1 argument is provided, it will process only the first one.
 # Args:
 #   $1: Directory path to check/create
 check_and_create_dir() {
+    if [[ $# -gt 1 ]]; then
+        echo -e "${YELLOW}${WARNING} Warning: More than 1 argument provided. Only the first argument ($1) will be processed.${RESET}"
+    fi
+    
     if [[ ! -d "$1" ]]; then
-        echo "Creating directory: $1"
+        echo -e "${CYAN}${FOLDER} Creating directory: $1${RESET}"
         mkdir -p "$1"
     else
-        echo "Directory already exists: $1"
+        echo -e "${GREEN}${CHECK} Directory already exists: $1${RESET}"
     fi
 }
 
@@ -41,14 +61,14 @@ clone_or_pull() {
     
     # Check if the repository directory already exists
     if [[ -d "$full_path" ]]; then
-        echo "Repository $final_name already exists. Pulling latest changes..."
+        echo -e "${CYAN}${PULL} Repository $final_name already exists. Pulling latest changes... ${RESET}"
         # Pull latest changes from 'main' or 'master' branch, if the repository already exists
         (cd "$full_path" && git pull origin main || git pull origin master)
         # After pulling, ensure all submodules are initialized and updated
         (cd "$full_path" && git submodule update --init --recursive)
     else
         # If the repository doesn't exist, clone it as a submodule
-        echo "Cloning $final_name into $target_dir"
+        echo -e "${CYAN}${CLONE} Cloning $final_name into $target_dir ${RESET}"
         git submodule add "$repo_url" "$full_path"
     fi
 }
@@ -62,25 +82,25 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 if [[ "$current_branch" != "main" && "$current_branch" != "master" ]]; then
     # Switch to 'main' branch if it exists, otherwise check for 'master'
     if git show-ref --verify --quiet refs/heads/main; then
-        echo "Switching to main branch"
+        echo -e "${CYAN}${INFO} Switching to main branch${RESET}"
         git checkout main
     elif git show-ref --verify --quiet refs/heads/master; then
-        echo "Switching to master branch"
+        echo -e "${CYAN}${INFO} Switching to master branch${RESET}"
         git checkout master
     else
-        echo "Neither 'main' nor 'master' branch exists. Aborting."
+        echo -e "${RED}${WARNING} Neither 'main' nor 'master' branch exists. Aborting.${RESET}"
         exit 1
     fi
 else
-    echo "Already on $current_branch branch"
+    echo "${GREEN}${CHECK} Already on $current_branch branch${RESET}"
 fi
 
 # Clone or pull the CAOS repository (main repository for the project)
-echo "Processing CAOS repository"
+echo -e "${CYAN}${INFO} Processing CAOS repository${RESET}"
 clone_or_pull "$CAOS_REPO" "."
 
 # Clone or pull the Laboratories repositories using the list of URLs and custom names
-echo "Processing Laboratories repositories"
+echo -e "${CYAN}${INFO} Processing Laboratories repositories${RESET}"
 for index in {1..$#LABORATORIES}; do
     repo="${LABORATORIES[$index]}"
     custom_name="${LABORATORIES_CUSTOM_NAMES[$index]}"
@@ -88,7 +108,7 @@ for index in {1..$#LABORATORIES}; do
 done
 
 # Clone or pull the Exercises repositories using the list of URLs and custom names
-echo "Processing Exercises repositories"
+echo -e "${CYAN}${INFO} Processing Exercises repositories${RESET}"
 for index in {1..$#EXERCISES}; do
     repo="${EXERCISES[$index]}"
     custom_name="${EXERCISES_CUSTOM_NAMES[$index]}"
@@ -101,4 +121,7 @@ git submodule update --init --recursive
 # Uncomment the next line if you want to fetch the latest remote changes for submodules, but it may cause unintended updates
 # git submodule update --recursive --remote
 
-echo "All repositories have been processed (cloned or pulled) in their respective directories."
+# Add the new command here if you want to force initialize all submodules:
+# git submodule update --init --recursive --force
+
+echo -e "${GREEN}${CHECK} All repositories have been processed (cloned or pulled) in their respective directories. ${RESET}"
