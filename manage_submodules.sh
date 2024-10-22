@@ -14,6 +14,7 @@ FOLDER="📂"
 PULL="⬇️"
 CLONE="📥"
 INFO="ℹ️"
+BRANCH="🌿"
 
 # Source the repository URLs and custom names from an external file (urls.txt)
 source urls.txt
@@ -32,6 +33,44 @@ check_and_create_dir() {
         mkdir -p "$1"
     else
         echo -e "${GREEN}${CHECK} Directory already exists: $1${RESET}"
+    fi
+}
+
+# Function to manage personal branch
+# Args:
+#   $1: full path
+manage_personal_branch() { # TODO: check
+    local repo_dir=$1
+    
+    # Store current branch and changes
+    local current_branch=$(cd "$repo_dir" && git symbolic-ref --short HEAD)
+    
+    # Check for uncommitted changes
+    if [[ -n "$(cd "$repo_dir" && git status --porcelain)" ]]; then
+        echo -e "${YELLOW}${WARNING} Uncommitted changes detected in $repo_dir${RESET}"
+        echo -e "${CYAN}${INFO} Stashing changes...${RESET}"
+        (cd "$repo_dir" && git stash)
+    fi
+    
+    # Create or switch to personal branch
+    if ! (cd "$repo_dir" && git show-ref --verify --quiet refs/heads/personal); then
+        echo -e "${CYAN}${BRANCH} Creating personal branch in $repo_dir${RESET}"
+        (cd "$repo_dir" && git checkout -b personal)
+    else
+        # If we were on personal branch, update it with main
+        if [[ "$current_branch" == "personal" ]]; then
+            echo -e "${CYAN}${BRANCH} Updating personal branch with latest changes${RESET}"
+            (cd "$repo_dir" && git checkout main && \
+             git pull origin main && \
+             git checkout personal && \
+             git rebase main)
+        fi
+    fi
+    
+    # Restore stashed changes if any
+    if [[ -n "$(cd "$repo_dir" && git stash list)" ]]; then
+        echo -e "${CYAN}${INFO} Restoring stashed changes...${RESET}"
+        (cd "$repo_dir" && git stash pop)
     fi
 }
 
@@ -66,10 +105,14 @@ clone_or_pull() {
         (cd "$full_path" && git pull origin main || git pull origin master)
         # After pulling, ensure all submodules are initialized and updated
         (cd "$full_path" && git submodule update --init --recursive)
+        # Manage personal branch
+        manage_personal_branch "$full_path" # TODO: check
     else
         # If the repository doesn't exist, clone it as a submodule
         echo -e "${CYAN}${CLONE} Cloning $final_name into $target_dir ${RESET}"
         git submodule add "$repo_url" "$full_path"
+        # Initialize personal branch for new repository
+        manage_personal_branch "$full_path" # TODO: check
     fi
 }
 
