@@ -147,6 +147,9 @@ fi
 echo -e "${CYAN}${INFO} Processing CAOS repository${RESET}"
 clone_or_pull "$CAOS_REPO" "."
 
+# Clone or pull the FreeRTOS repository
+# TODO
+
 # Clone or pull the Laboratories repositories using the list of URLs and custom names
 echo -e "${CYAN}${INFO} Processing Laboratories repositories${RESET}"
 for index in {1..$#LABORATORIES}; do

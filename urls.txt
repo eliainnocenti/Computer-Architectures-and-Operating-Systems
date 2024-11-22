@@ -1,5 +1,7 @@
 CAOS_REPO="https://baltig.polito.it/teaching-material/CAOS.git"
 
+FREERTOS_REPO="https://github.com/FreeRTOS/FreeRTOS.git"
+
 LABORATORIES=(
     "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab-1-setup.git"
     "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab2-baremetal.git"

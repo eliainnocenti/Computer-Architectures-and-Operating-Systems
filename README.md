@@ -7,6 +7,8 @@ This repository contains all the materials and exercises for the **Computer Arch
 
 ## ⚠️ Important Notice
 
+> **Note:** This repository is for educational purposes only. Make sure to follow the course rules and guidelines when utilizing these materials.
+
 > **Note:** The current implementation is not fully up to date. Modifications will follow to address all outstanding issues.
 
 <!-- > **Note:** The pulling and data collection from all submodules works, but managing the personal branch for developing personal modifications is still not functioning. -->
@@ -87,6 +89,10 @@ The script will:
 1. Clone any missing repositories into the `Laboratories/` and `Exercises/` directories.
 2. Pull updates for existing repositories.
 
+### FreeRTOS config [ To be done! ]
+
+<!-- TODO -->
+
 ### Creating a Personal Branch [ Not working! ]
 
 To work on the exercises and make your own modifications without affecting the main repository, follow these steps to create a new `personal` branch:
@@ -123,6 +129,8 @@ Once the branch is pushed, you will be able to switch between the `main` and `pe
 Feel free to fork the repository and make pull requests to improve the workflow or fix any issues. Contributions are always welcome!
 
 ## License
+
+<!-- TODO: check -->
 
 This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
