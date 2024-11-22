@@ -1,0 +1,43 @@
+CAOS_REPO="https://baltig.polito.it/teaching-material/CAOS.git"
+
+LABORATORIES=(
+    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab-1-setup.git"
+    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab2-baremetal.git"
+    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab3-freertos.git"
+    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab4-synch.git"
+    "https://baltig.polito.it/teaching-material/labs-caos-and-os/lab5-peripherals.git"
+)
+
+EXERCISES=(
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/arm-bare-metal.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/crosscompilation.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/freertos_helloworld.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/myfirstos.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/process-scheduling.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/myspinlockarm.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/timers.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/FreeRTOSsampleapp.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/interrupts.git"
+    "https://baltig.polito.it/teaching-material/exercises-caos-and-os/test_vahid.git"
+)
+
+LABORATORIES_CUSTOM_NAMES=(
+    "Lab1 - Setup"
+    "Lab2 - baremetal"
+    "Lab3 - FreeRTOS"
+    "Lab4 - Synch"
+    "Lab5 - Peripherals"
+)
+
+EXERCISES_CUSTOM_NAMES=(
+    "ARM Bare Metal"
+    "CrossCompilation"
+    "FreeRTOS_HelloWorld"
+    "MyFirstOS"
+    "Process Scheduling"
+    "MySpinLockARM"
+    "Timers"
+    "FreeRTOS_sampleapp"
+    "Interrupts"
+    "Synchronization and intertask communications"
+)
