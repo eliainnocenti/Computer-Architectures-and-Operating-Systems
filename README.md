@@ -46,6 +46,7 @@ Below is the current list of repositories managed by the script:
 | Type     | Repository URL                                                                                                  | Custom Name         |
 | -------- | --------------------------------------------------------------------------------------------------------------- | ------------------- |
 | CAOS     | [CAOS Repository](https://baltig.polito.it/teaching-material/CAOS.git)                                          | CAOS Repository     |
+| FreeRTOS | [FreeRTOS Repository](https://github.com/FreeRTOS/FreeRTOS.git)                                                 | FreeRTOS Repository |
 | Lab      | [Lab1 - Setup](https://baltig.polito.it/teaching-material/labs-caos-and-os/lab-1-setup.git)                     | Lab1 - Setup        |
 | Lab      | [Lab2 - baremetal](https://baltig.polito.it/teaching-material/labs-caos-and-os/lab2-baremetal.git)              | Lab2 - baremetal    |
 | Lab      | [Lab3 - FreeRTOS](https://baltig.polito.it/teaching-material/labs-caos-and-os/lab3-freertos.git)                | Lab3 - FreeRTOS     |
@@ -89,9 +90,48 @@ The script will:
 1. Clone any missing repositories into the `Laboratories/` and `Exercises/` directories.
 2. Pull updates for existing repositories.
 
-### FreeRTOS config [ To be done! ]
+### FreeRTOS Configuration
 
-<!-- TODO -->
+Although many labs and exercises rely on the `FreeRTOS` submodule, it is more convenient to clone the `FreeRTOS` repository only once at the root of this repository. This reduces redundancy and ensures that the FreeRTOS codebase remains consistent across all exercises and labs.
+
+To simplify this process, the provided `manage_submodules.sh` script is designed to clone the FreeRTOS repository into the root directory of this repository (`Teaching-material`). Once cloned, users must manually update the paths in the `Makefile` file of each lab and exercise to use a relative path pointing to the centralized `FreeRTOS` repository.
+
+#### Steps to Configure FreeRTOS
+
+<!-- TODO: check -->
+
+1. **Clone the FreeRTOS Repository:**
+   If you haven't already cloned the `FreeRTOS` repository, run the following command:
+
+   ```bash
+   ./manage_submodules.sh
+   ```
+   
+   This will clone the FreeRTOS repository into the root directory.
+   
+2. **Remove Empty FreeRTOS Directories:**
+   To avoid potential conflicts, empty `FreeRTOS` directories in individual labs and exercises should be deleted. For example:
+   
+   ```bash
+   find Laboratories/ Exercises/ -type d -name "FreeRTOS" -empty -delete
+   ```
+   
+   This ensures that the centralized `FreeRTOS` repository is used instead.
+   
+3. **Update Relative Paths:**
+   Update the paths in each lab and exercise's README or configuration files to point to the centralized FreeRTOS repository. For example:
+   
+   ```
+   Old Path: ../../FreeRTOS
+   New Path: ../../../FreeRTOS
+   ```
+   
+   Ensure that these paths are consistent across all dependent repositories.
+   
+#### Important Notes
+
+- It is the responsibility of each user to update the paths in their local environment. The repository does not automatically handle this configuration.
+- Check the `README` of each lab or exercise for specific `FreeRTOS` requirements and compatibility information.
 
 ### Creating a Personal Branch [ Not working! ]
 
