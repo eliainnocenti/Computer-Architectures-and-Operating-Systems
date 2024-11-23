@@ -90,7 +90,7 @@ The script will:
 1. Clone any missing repositories into the `Laboratories/` and `Exercises/` directories.
 2. Pull updates for existing repositories.
 
-### FreeRTOS Configuration
+### FreeRTOS Configuration [ Not working! ]
 
 Although many labs and exercises rely on the `FreeRTOS` submodule, it is more convenient to clone the `FreeRTOS` repository only once at the root of this repository. This reduces redundancy and ensures that the FreeRTOS codebase remains consistent across all exercises and labs.
 
@@ -119,7 +119,7 @@ To simplify this process, the provided `manage_submodules.sh` script is designed
    This ensures that the centralized `FreeRTOS` repository is used instead.
    
 3. **Update Relative Paths:**
-   Update the paths in each lab and exercise's README or configuration files to point to the centralized FreeRTOS repository. For example:
+   Update the paths in each lab and exercise's `README` or configuration files to point to the centralized `FreeRTOS` repository. For example:
    
    ```
    Old Path: ../../FreeRTOS

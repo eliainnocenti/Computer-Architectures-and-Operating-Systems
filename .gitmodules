@@ -1,6 +1,10 @@
 [submodule "CAOS"]
 	path = CAOS
 	url = https://baltig.polito.it/teaching-material/CAOS.git
+    
+[submodule "FreeRTOS"]
+	path = FreeRTOS
+	url = https://github.com/FreeRTOS/FreeRTOS.git
 
 [submodule "Laboratories/Lab1 - Setup"]
 	path = Laboratories/Lab1 - Setup

@@ -104,7 +104,7 @@ clone_or_pull() {
         # Pull latest changes from 'main' or 'master' branch, if the repository already exists
         (cd "$full_path" && git pull origin main || git pull origin master)
         # After pulling, ensure all submodules are initialized and updated
-        (cd "$full_path" && git submodule update --init --recursive)
+        (cd "$full_path" && git submodule update --init)
         # Manage personal branch
         # manage_personal_branch "$full_path" # TODO: check
     else
@@ -114,6 +114,31 @@ clone_or_pull() {
         # Initialize personal branch for new repository
         # manage_personal_branch "$full_path" # TODO: check
     fi
+}
+
+# Function to handle FreeRTOS setup
+# Args:
+#   $1: FreeRTOS repository URL
+#   $2: Root directory for the centralized FreeRTOS repo
+manage_freertos() {
+    local freertos_repo=$1
+    local freertos_dir=$2
+
+    echo -e "${CYAN}${INFO} Managing FreeRTOS repository...${RESET}"
+
+    # Check if the FreeRTOS directory already exists
+    if [[ -d "$freertos_dir" ]]; then
+        echo -e "${CYAN}${PULL} FreeRTOS repository already exists. Pulling latest changes...${RESET}"
+        (cd "$freertos_dir" && git pull origin main || git pull origin master)
+        echo -e "${CYAN}${INFO} Updating submodules for FreeRTOS...${RESET}"
+        (cd "$freertos_dir" && git submodule update --init --recursive)
+    else
+        echo -e "${CYAN}${CLONE} Cloning FreeRTOS repository into $freertos_dir with submodules...${RESET}"
+        git clone --recurse-submodules "$freertos_repo" "$freertos_dir"
+    fi
+
+    # Notify the user to update relative paths in dependent projects
+    echo -e "${YELLOW}${WARNING} Ensure to update paths in dependent projects to use $freertos_dir.${RESET}"
 }
 
 # Remove all .DS_Store files from the repository and its subdirectories
@@ -148,7 +173,8 @@ echo -e "${CYAN}${INFO} Processing CAOS repository${RESET}"
 clone_or_pull "$CAOS_REPO" "."
 
 # Clone or pull the FreeRTOS repository
-# TODO
+echo -e "${CYAN}${INFO} Processing FreeRTOS repository${RESET}"
+manage_freertos "$FREERTOS_REPO" "FreeRTOS"
 
 # Clone or pull the Laboratories repositories using the list of URLs and custom names
 echo -e "${CYAN}${INFO} Processing Laboratories repositories${RESET}"
